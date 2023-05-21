@@ -40,7 +40,7 @@ public class GatewayApplication {
 		corsConfiguration.setAllowedOriginPatterns(Collections.singletonList("*"));
 		//2,允许任何请求头
 		corsConfiguration.addAllowedHeader(CorsConfiguration.ALL);
-		//3,允许任何方法(get,post....)
+		//3,允许任何方法(get,post....) ctrl + 空格
 		corsConfiguration.addAllowedMethod("*");
 		//4,允许凭证
 		corsConfiguration.setAllowCredentials(true);
@@ -52,7 +52,7 @@ public class GatewayApplication {
 //		corsConfiguration.addAllowedOrigin("*");
 		corsConfiguration.addAllowedOriginPattern("*");
 
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsWebFilter(source);
 	}

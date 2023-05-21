@@ -15,6 +15,6 @@ spring:
       max-request-size: 50MB
 #配置本地上传文件路径
 file:
-  path: /Users/xiaozhe/Downloads/td/
+  path: C:/Users/86137/Desktop/jave code/upload/
   domain: http://127.0.0.1:9000/file/f/
 

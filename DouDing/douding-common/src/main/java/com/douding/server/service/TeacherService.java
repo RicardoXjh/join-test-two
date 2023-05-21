@@ -1,10 +1,8 @@
 package com.douding.server.service;
 
-import com.douding.server.domain.Category;
-import com.douding.server.domain.CategoryExample;
+
 import com.douding.server.domain.Teacher;
 import com.douding.server.domain.TeacherExample;
-import com.douding.server.dto.CategoryDto;
 import com.douding.server.dto.TeacherDto;
 import com.douding.server.dto.PageDto;
 import com.douding.server.mapper.TeacherMapper;
@@ -12,12 +10,10 @@ import com.douding.server.util.CopyUtil;
 import com.douding.server.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,23 +38,31 @@ public class TeacherService {
     }
 
     public void save(TeacherDto teacherDto) {
-
-
+        //判断操作为新增或修改
+        Teacher teacher = CopyUtil.copy(teacherDto, Teacher.class);
+        //空增 非空改
+        if(StringUtils.isEmpty(teacherDto.getId())){
+            this.insert(teacher);
+        }
+        else{
+            this.update(teacher);
+        }
     }
 
     //新增数据
     private void insert(Teacher teacher) {
-
-
+        //生产id
+        teacher.setId(UuidUtil.getShortUuid());
+        teacherMapper.insert(teacher);
     }
 
     //更新数据
     private void update(Teacher teacher) {
-
+        teacherMapper.updateByPrimaryKey(teacher);
     }
 
     public void delete(String id) {
-
+        teacherMapper.deleteByPrimaryKey(id);
     }
 
     public List<TeacherDto> all() {

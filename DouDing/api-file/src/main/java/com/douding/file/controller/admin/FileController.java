@@ -28,7 +28,6 @@ public class FileController {
 
     @RequestMapping("/list")
     public ResponseDto list(PageDto pageDto){
-
         ResponseDto<PageDto> responseDto = new ResponseDto<>();
         fileService.list(pageDto);
         responseDto.setContent(pageDto);

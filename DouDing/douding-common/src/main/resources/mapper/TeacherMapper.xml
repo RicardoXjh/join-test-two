@@ -69,22 +69,41 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-
+    id,name,nickname,image,position,motto,intro
   </sql>
   <select id="selectByExample" parameterType="com.douding.server.domain.TeacherExample" resultMap="BaseResultMap">
-
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teacher
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
 
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-
+        delete from teacher
+        where id = #{id}
   </delete>
   <delete id="deleteByExample" parameterType="com.douding.server.domain.TeacherExample">
 
   </delete>
   <insert id="insert" parameterType="com.douding.server.domain.Teacher">
-
+    insert into teacher
+    (
+        <include refid="Base_Column_List"></include>
+    )
+    values
+    (
+        #{id},#{name},#{nickname},#{image},#{position},#{motto},#{intro}
+    )
   </insert>
   <insert id="insertSelective" parameterType="com.douding.server.domain.Teacher">
 
@@ -102,6 +121,13 @@
 
   </update>
   <update id="updateByPrimaryKey" parameterType="com.douding.server.domain.Teacher">
-
+    update teacher set
+      name = #{name},
+      nickname = #{nickname},
+      image = #{image},
+      position = #{position},
+      motto = #{motto},
+      intro = #{intro}
+    where id = #{id}
   </update>
 </mapper>

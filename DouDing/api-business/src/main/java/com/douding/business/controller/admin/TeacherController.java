@@ -29,19 +29,28 @@ public class TeacherController {
 
     @RequestMapping("/list")
     public ResponseDto list(PageDto pageDto){
-        return null;
+        ResponseDto<PageDto> responseDto = new ResponseDto<>();
+        //查表
+        teacherService.list(pageDto);
+        //数据存入返回
+        responseDto.setContent(pageDto);
+        return responseDto;
     }
 
     @PostMapping("/save")
     public ResponseDto save(@RequestBody TeacherDto teacherDto){
-
-        return null;
+        teacherService.save(teacherDto);
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.setSuccess(true);
+        return responseDto;
     }
     
     @DeleteMapping("/delete/{id}")
     public ResponseDto delete(@PathVariable String id){
-
-        return null;
+        teacherService.delete(id);
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.setSuccess(true);
+        return responseDto;
     }
 
     @RequestMapping("/all")
